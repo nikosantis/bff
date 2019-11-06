@@ -54,8 +54,8 @@ const main = async (req, res, next) => {
         user: {},
         playing: {},
         myList: [],
-        trends: {},
-        originals: {},
+        trends: [],
+        originals: [],
       };
     }
     const store = createStore(reducer, initialState);

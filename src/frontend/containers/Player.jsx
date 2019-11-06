@@ -1,27 +1,19 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getVideoSource } from '../actions';
 import '../assets/styles/components/Player.scss';
 import NotFound from './NotFound';
 
-const Player = (props) => {
-  // eslint-disable-next-line react/destructuring-assignment
-  const { id } = props.match.params;
-  // eslint-disable-next-line react/destructuring-assignment
-  const hasPlaying = Object.keys(props.playing).length > 0;
-
-  useLayoutEffect(() => {
+const Player = ({ props, match, playing, source }) => {
+  const { id } = match.params;
+  const hasPlaying = Object.keys(playing).length > 0;
+  useEffect(() => {
     props.getVideoSource(id);
   }, []);
-
   return hasPlaying ? (
     <div className='Player'>
-      <video className='Player-video' controls autoPlay>
-        <source
-          // eslint-disable-next-line react/destructuring-assignment
-          src={props.playing.source}
-          type='video/mp4'
-        />
+      <video controls autoPlay>
+        <source src={playing.source} type='video/mp4' />
       </video>
       <div className='Player-back'>
         <button type='button' onClick={() => props.history.goBack()}>
